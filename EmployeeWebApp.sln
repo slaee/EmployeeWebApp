@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeWebApp", "EmployeeWebApp\EmployeeWebApp.csproj", "{27520F99-215F-4B42-9FF7-FEE3E00E3DDB}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MVCCRUDDB", "MVCCRUDDB\MVCCRUDDB.sqlproj", "{154D904E-BF25-45C6-ADB1-9B86E3DB3134}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{27520F99-215F-4B42-9FF7-FEE3E00E3DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27520F99-215F-4B42-9FF7-FEE3E00E3DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27520F99-215F-4B42-9FF7-FEE3E00E3DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154D904E-BF25-45C6-ADB1-9B86E3DB3134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154D904E-BF25-45C6-ADB1-9B86E3DB3134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154D904E-BF25-45C6-ADB1-9B86E3DB3134}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{154D904E-BF25-45C6-ADB1-9B86E3DB3134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154D904E-BF25-45C6-ADB1-9B86E3DB3134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154D904E-BF25-45C6-ADB1-9B86E3DB3134}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
