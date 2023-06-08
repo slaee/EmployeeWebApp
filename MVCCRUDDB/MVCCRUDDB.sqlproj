@@ -67,4 +67,7 @@
   <ItemGroup>
     <RefactorLog Include="MVCCRUDDB.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="MVCCRUDDB.publish.xml" />
+  </ItemGroup>
 </Project>

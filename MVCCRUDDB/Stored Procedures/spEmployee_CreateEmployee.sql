@@ -25,13 +25,13 @@ BEGIN
 		,[LastName]
 		,[Birthdate]
 		,[ContactNo]
-		,EmailAddress)
+		,[EmailAddress])
 	VALUES
 		(@EmpNo
 		,@FirstName
 		,@LastName
 		,@Birthdate
 		,@ContactNo
-		,EmailAddress)
+		,@EmailAddress)
 	SELECT SCOPE_IDENTITY()
 END
