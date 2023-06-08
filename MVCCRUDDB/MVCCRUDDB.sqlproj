@@ -62,6 +62,7 @@
   <ItemGroup>
     <Build Include="Table\Employee.sql" />
     <Build Include="Stored Procedures\spEmployee_CreateEmployee.sql" />
+    <Build Include="Stored Procedures\spEmployee_UpdateEmployeeByID.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MVCCRUDDB.refactorlog" />
