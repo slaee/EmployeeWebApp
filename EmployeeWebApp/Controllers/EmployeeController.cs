@@ -19,7 +19,7 @@ namespace EmployeeWebApp.Controllers
                 var employees = _context.Employees.ToList();
                 return View(employees);
             }
-            catch (Exception e)
+            catch
             {
                 ViewBag.Message = "Something went wrong. Please try again.";
                 return View();
@@ -52,7 +52,7 @@ namespace EmployeeWebApp.Controllers
 
                 return View();
             }
-            catch (Exception e)
+            catch
             {
                 ViewBag.Message = "Something went wrong. Please try again.";
                 return View();
@@ -75,7 +75,7 @@ namespace EmployeeWebApp.Controllers
                 
                 return View(employeeUpdation);
             }
-            catch (Exception e)
+            catch
             {
                 ViewBag.Message = "Something went wrong. Please try again.";
                 return View();
@@ -95,7 +95,7 @@ namespace EmployeeWebApp.Controllers
                 ViewBag.Message = "Employee updated successfully";
                 return View();
             }
-            catch (Exception e)
+            catch
             {
                 ViewBag.Message = "Something went wrong. Please try again.";
                 return View();
@@ -109,7 +109,7 @@ namespace EmployeeWebApp.Controllers
                 var employee = _context.Employees.Where(e => e.ID == id).FirstOrDefault();
                 return View(employee);
             }
-            catch (Exception e)
+            catch
             {
                 ViewBag.Message = "Something went wrong. Please try again.";
                 return View();
@@ -127,7 +127,7 @@ namespace EmployeeWebApp.Controllers
                 ViewBag.Message = "Employee deleted successfully";
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            catch
             {
                 ViewBag.Message = "Something went wrong. Please try again.";
                 return View();
