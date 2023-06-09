@@ -19,7 +19,7 @@ namespace EmployeeWebApp.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public System.DateTime Birthdate { get; set; }
-        public decimal ContactNo { get; set; }
+        public string ContactNo { get; set; }
         public string EmailAddress { get; set; }
     }
 }

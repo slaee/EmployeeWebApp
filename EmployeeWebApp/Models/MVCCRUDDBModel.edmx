@@ -9,14 +9,26 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmpNo" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Birthdate" Type="date" Nullable="false" />
-          <Property Name="ContactNo" Type="numeric" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="ContactNo" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Function Name="spEmployee_CreateEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Birthdate" Type="date" Mode="In" />
+          <Parameter Name="ContactNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spEmployee_UpdateEmployeeByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="bigint" Mode="In" />
+          <Parameter Name="ContactNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="EmployeeDBModelStoreContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -29,16 +41,28 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmpNo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Birthdate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ContactNo" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityContainer Name="EmployeeDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <FunctionImport Name="spEmployee_CreateEmployee" ReturnType="Collection(String)">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Birthdate" Mode="In" Type="DateTime" />
+            <Parameter Name="ContactNo" Mode="In" Type="String" />
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spEmployee_UpdateEmployeeByID">
+            <Parameter Name="ID" Mode="In" Type="Int64" />
+            <Parameter Name="ContactNo" Mode="In" Type="String" />
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -59,6 +83,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spEmployee_CreateEmployee" FunctionName="EmployeeDBModel.Store.spEmployee_CreateEmployee" />
+          <FunctionImportMapping FunctionImportName="spEmployee_UpdateEmployeeByID" FunctionName="EmployeeDBModel.Store.spEmployee_UpdateEmployeeByID" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

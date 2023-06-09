@@ -12,6 +12,8 @@ namespace EmployeeWebApp.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class EmployeeDBEntities : DbContext
     {
@@ -26,5 +28,47 @@ namespace EmployeeWebApp.Models
         }
     
         public virtual DbSet<Employee> Employees { get; set; }
+    
+        public virtual ObjectResult<string> spEmployee_CreateEmployee(string firstName, string lastName, Nullable<System.DateTime> birthdate, string contactNo, string emailAddress)
+        {
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var birthdateParameter = birthdate.HasValue ?
+                new ObjectParameter("Birthdate", birthdate) :
+                new ObjectParameter("Birthdate", typeof(System.DateTime));
+    
+            var contactNoParameter = contactNo != null ?
+                new ObjectParameter("ContactNo", contactNo) :
+                new ObjectParameter("ContactNo", typeof(string));
+    
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("EmailAddress", emailAddress) :
+                new ObjectParameter("EmailAddress", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spEmployee_CreateEmployee", firstNameParameter, lastNameParameter, birthdateParameter, contactNoParameter, emailAddressParameter);
+        }
+    
+        public virtual int spEmployee_UpdateEmployeeByID(Nullable<long> iD, string contactNo, string emailAddress)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(long));
+    
+            var contactNoParameter = contactNo != null ?
+                new ObjectParameter("ContactNo", contactNo) :
+                new ObjectParameter("ContactNo", typeof(string));
+    
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("EmailAddress", emailAddress) :
+                new ObjectParameter("EmailAddress", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEmployee_UpdateEmployeeByID", iDParameter, contactNoParameter, emailAddressParameter);
+        }
     }
 }
