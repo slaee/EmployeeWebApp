@@ -7,10 +7,15 @@ namespace EmployeeWebApp.DTOs
     public class EmployeeCreationDto
     {
         [Required(ErrorMessage = "Firstname is required.")]
+        [StringLength(15, ErrorMessage = "First name cannot be longer than 15 characters.")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "Invalid first name.")]
         public string FirstName { get; set; }
         
         [Required(ErrorMessage = "Lastname is required.")]
+        [StringLength(15, ErrorMessage = "Last name cannot be longer than 15 characters.")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]+$", ErrorMessage = "Invalid last name.")]
         public string LastName { get; set; }
+        
         [Required(ErrorMessage = "Birthdate is required.")]
         [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
