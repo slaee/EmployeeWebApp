@@ -14,8 +14,16 @@ namespace EmployeeWebApp.Controllers
         
         public ActionResult Index()
         {
-            var employees = _context.Employees.ToList();
-            return View(employees);
+            try
+            {
+                var employees = _context.Employees.ToList();
+                return View(employees);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Something went wrong. Please try again.";
+                return View();
+            }
         }
 
         [HttpGet]
@@ -27,53 +35,103 @@ namespace EmployeeWebApp.Controllers
         [HttpPost]
         public ActionResult Create(EmployeeCreationDto employee)
         {
-            // use the stored proc
-            _context.spEmployee_CreateEmployee(employee.FirstName, employee.LastName, employee.Birthdate, employee.ContactNo, employee.EmailAddress);
+            try
+            {
+                var existingEmployee = _context.Employees.FirstOrDefault(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName);
 
-            ViewBag.Message = "Employee created successfully";
-            return View();
+                if (existingEmployee != null)
+                {
+                    ViewBag.Message = "Employee with the same first name and last name already exists.";
+                }
+                else
+                {
+                    _context.spEmployee_CreateEmployee(employee.FirstName, employee.LastName, employee.Birthdate, employee.ContactNo, employee.EmailAddress);
+                    
+                    ViewBag.Message = "New employee created.";
+                }
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Something went wrong. Please try again.";
+                return View();
+            }
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var employee = _context.Employees.Where(e => e.ID == id).FirstOrDefault();
-
-            var employeeUpdation = new EmployeeUpdationDto
+            try
             {
-                ID = employee.ID,
-                ContactNo = employee.ContactNo,
-                EmailAddress = employee.EmailAddress
-            };
-            return View(employeeUpdation);
+                var employee = _context.Employees.Where(e => e.ID == id).FirstOrDefault();
+
+                var employeeUpdation = new EmployeeUpdationDto
+                {
+                    ID = employee.ID,
+                    ContactNo = employee.ContactNo,
+                    EmailAddress = employee.EmailAddress
+                };
+                
+                return View(employeeUpdation);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Something went wrong. Please try again.";
+                return View();
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(EmployeeUpdationDto employee)
         {
-            var employeeToUpdate = _context.Employees.Where(e => e.ID == employee.ID).FirstOrDefault();
-            employeeToUpdate.ContactNo = employee.ContactNo;
-            employeeToUpdate.EmailAddress = employee.EmailAddress;
-            _context.SaveChanges();
+            try
+            {
+                var employeeToUpdate = _context.Employees.Where(e => e.ID == employee.ID).FirstOrDefault();
+                employeeToUpdate.ContactNo = employee.ContactNo;
+                employeeToUpdate.EmailAddress = employee.EmailAddress;
+                _context.SaveChanges();
 
-            ViewBag.Message = "Employee updated successfully";
-            return View();
+                ViewBag.Message = "Employee updated successfully";
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Something went wrong. Please try again.";
+                return View();
+            }
         }
 
         public ActionResult Details(int id)
         {
-            var employee = _context.Employees.Where(e => e.ID == id).FirstOrDefault();
-            return View(employee);
+            try
+            {
+                var employee = _context.Employees.Where(e => e.ID == id).FirstOrDefault();
+                return View(employee);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Something went wrong. Please try again.";
+                return View();
+            }
         }
 
         public ActionResult Delete(int id)
         {
-            var employee = _context.Employees.Where(e => e.ID == id).FirstOrDefault();
-            _context.Employees.Remove(employee);
-            _context.SaveChanges();
+            try
+            { 
+                var employee = _context.Employees.Where(e => e.ID == id).FirstOrDefault();
+                _context.Employees.Remove(employee);
+                _context.SaveChanges();
 
-            ViewBag.Message = "Employee deleted successfully";
-            return RedirectToAction("Index");
+                ViewBag.Message = "Employee deleted successfully";
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Something went wrong. Please try again.";
+                return View();
+            }
         }
     }
 }
