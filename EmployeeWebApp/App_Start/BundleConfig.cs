@@ -25,6 +25,10 @@ namespace EmployeeWebApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new Bundle("~/bundles/bootstrap").Include(
+                   "~/Scripts/bootstrap.js",
+                   "~/Content/site.css"));
         }
     }
 }
