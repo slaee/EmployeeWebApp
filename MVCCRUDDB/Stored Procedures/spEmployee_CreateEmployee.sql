@@ -2,7 +2,7 @@
 	@FirstName nvarchar(15),
 	@LastName nvarchar(15),
 	@Birthdate Date,
-	@ContactNo numeric(11),
+	@ContactNo nvarchar(11),
 	@EmailAddress nvarchar(100)
 AS
 BEGIN
@@ -17,21 +17,30 @@ BEGIN
 	BEGIN
 		SET @EmpNo = SUBSTRING(CONVERT(NVARCHAR(36), NEWID()), 1, 6)
 	END
-	
-	-- Insert the new employee
-	INSERT INTO [dbo].[Employee]
-		([EmpNo]
-		,[FirstName]
-		,[LastName]
-		,[Birthdate]
-		,[ContactNo]
-		,[EmailAddress])
-	VALUES
-		(@EmpNo
-		,@FirstName
-		,@LastName
-		,@Birthdate
-		,@ContactNo
-		,@EmailAddress)
-	SELECT SCOPE_IDENTITY()
+
+	-- Check if firstname and last name is already existing
+	IF EXISTS (SELECT 1 FROM [dbo].[Employee] WHERE [FirstName] = @FirstName AND [LastName] = @LastName)
+	BEGIN
+		-- If existing, return the existing employee
+		SELECT [EmpNo] FROM [dbo].[Employee] WHERE [FirstName] = @FirstName AND [LastName] = @LastName
+	END
+	ELSE
+	BEGIN
+		-- Insert the new employee
+		INSERT INTO [dbo].[Employee]
+			([EmpNo]
+			,[FirstName]
+			,[LastName]
+			,[Birthdate]
+			,[ContactNo]
+			,[EmailAddress])
+		VALUES
+			(@EmpNo
+			,@FirstName
+			,@LastName
+			,@Birthdate
+			,@ContactNo
+			,@EmailAddress)
+		SELECT SCOPE_IDENTITY()
+	END
 END

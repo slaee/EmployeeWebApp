@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spEmployee_UpdateEmployeeByID]
 	@ID bigint,
 	-- Only contact no. and email address can be updated for an employee
-	@ContactNo numeric(11),
+	@ContactNo nvarchar(11),
 	@EmailAddress nvarchar(100)
 AS
 BEGIN 
